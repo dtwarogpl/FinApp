@@ -1,4 +1,6 @@
-﻿using FinApp.Domain.Expenses;
+﻿using System;
+using FinApp.Common;
+using FinApp.Domain.Expenses;
 using FinApp.Domain.Expenses.Consumptions;
 using FinApp.Domain.Expenses.Moneys;
 using FluentAssertions;
@@ -10,7 +12,7 @@ namespace FinApp.UnitTests.Expenses
     public class UnitPriceTests
     {
         private readonly Money _paid = new(10, Currency.Usd);
-        private readonly Consumption _consumed = new(5, UnitType.Liters);
+        private readonly Consumption _consumed = new(5, new ConsumptionType(Guid.NewGuid(), "SomeConsumption", UnitType.Liters));
 
         [Test]
         public void UnitPrice_Should_Calculate_Price()
@@ -38,7 +40,7 @@ namespace FinApp.UnitTests.Expenses
         public void UnitPrice_Should_PerseveConsumptionUnit()
         {
             var unitPrice = new UnitPrice(_paid, _consumed);
-            unitPrice.Consumption.Unit.Should().Be(_consumed.Unit);
+            unitPrice.Consumption.Type.Unit.Should().Be(_consumed.Type.Unit);
         }
     }
 }
