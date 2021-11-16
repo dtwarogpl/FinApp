@@ -11,11 +11,12 @@ namespace FinApp.Infrastructure.Expenses.Automapper_profiles
         {
             CreateMap<ConsumptionType, ConsumptionTypeDbDto>();
 
+            CreateMap<ConsumptionTypeDbDto, ConsumptionType>();
+
             CreateMap<Expense, ExpenseDbDto>().ForMember(x => x.PaidAmount, opt => opt.MapFrom(source => source.Price.Amount))
                 .ForMember(x => x.Currency, opt => opt.MapFrom(source => source.Price.Currency))
                 .ForMember(x => x.ConsumptionAmount, opt => opt.MapFrom(source => source.Consumption.Amount))
-                .ForMember(x => x.ConsumptionType, opt => opt.MapFrom(source => source.Consumption.Type));
+                .ForMember(x => x.ConsumptionType, opt => opt.MapFrom(source => source.Consumption.Type)).ReverseMap();
         }
     }
 }
-git
