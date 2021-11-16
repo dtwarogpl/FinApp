@@ -10,7 +10,7 @@ namespace FinApp.UnitTests.Expenses
     public class UnitPriceTests
     {
         private readonly Money _paid = new(10, Currency.Usd);
-        private readonly Consumption _consumed = new(5, ConsumptionUnit.Liters);
+        private readonly Consumption _consumed = new(5, UnitType.Liters);
 
         [Test]
         public void UnitPrice_Should_Calculate_Price()

@@ -1,5 +1,5 @@
 ﻿namespace FinApp.Infrastructure.Expenses
 {
-    public class Expense
+    public class ConsumptionUnit
     { }
 }

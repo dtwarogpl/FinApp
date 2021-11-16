@@ -1,0 +1,354 @@
+[
+  {
+    "Date": "2019-07-11 22:40:09",
+    "Cost": "62,87",
+    "Category": "Pr퉐",
+    "Amount": 0,
+    "price": "0,00",
+    "empty": ""
+  },
+  {
+    "Date": "2019-07-12 13:04:42",
+    "Cost": "50,24",
+    "Category": "Gaz",
+    "Amount": 0,
+    "price": "0,00",
+    "empty": ""
+  },
+  {
+    "Date": "2019-08-13 13:09:30",
+    "Cost": "33,93",
+    "Category": "Gaz",
+    "Amount": 3,
+    "price": "0,09",
+    "empty": "11,31"
+  },
+  {
+    "Date": "2019-09-13 15:24:36",
+    "Cost": "37,25",
+    "Category": "Gaz",
+    "Amount": 9,
+    "price": "0,24",
+    "empty": "4,14"
+  },
+  {
+    "Date": "2019-09-18 17:51:53",
+    "Cost": "171,66",
+    "Category": "Pr퉐",
+    "Amount": 1,
+    "price": "0,01",
+    "empty": "171,66"
+  },
+  {
+    "Date": "2019-10-15 13:07:25",
+    "Cost": 99,
+    "Category": "Gaz",
+    "Amount": 43,
+    "price": "0,43",
+    "empty": "2,30"
+  },
+  {
+    "Date": "2019-11-11 11:06:50",
+    "Cost": "138,58",
+    "Category": "Gaz",
+    "Amount": 51,
+    "price": "0,37",
+    "empty": "2,72"
+  },
+  {
+    "Date": "2019-11-19 09:36:26",
+    "Cost": "193,56",
+    "Category": "Pr퉐",
+    "Amount": 286,
+    "price": "1,48",
+    "empty": "0,68"
+  },
+  {
+    "Date": "2019-12-11 14:20:24",
+    "Cost": "348,87",
+    "Category": "Gaz",
+    "Amount": 177,
+    "price": "0,51",
+    "empty": "1,97"
+  },
+  {
+    "Date": "2020-01-09 16:37:29",
+    "Cost": "261,98",
+    "Category": "Pr퉐",
+    "Amount": 405,
+    "price": "1,55",
+    "empty": "0,65"
+  },
+  {
+    "Date": "2020-01-14 13:50:55",
+    "Cost": 354,
+    "Category": "Gaz",
+    "Amount": 180,
+    "price": "0,51",
+    "empty": "1,97"
+  },
+  {
+    "Date": "2020-02-12 15:14:11",
+    "Cost": 388,
+    "Category": "Gaz",
+    "Amount": 202,
+    "price": "0,52",
+    "empty": "1,92"
+  },
+  {
+    "Date": "2020-03-01 17:22:18",
+    "Cost": 107,
+    "Category": "Podatek",
+    "Amount": 1,
+    "price": "0,01",
+    "empty": "107,00"
+  },
+  {
+    "Date": "2020-03-13 13:55:33",
+    "Cost": 330,
+    "Category": "Gaz",
+    "Amount": 171,
+    "price": "0,52",
+    "empty": "1,93"
+  },
+  {
+    "Date": "2020-03-17 13:46:23",
+    "Cost": 409,
+    "Category": "Pr퉐",
+    "Amount": 610,
+    "price": "1,49",
+    "empty": "0,67"
+  },
+  {
+    "Date": "2020-04-15 16:35:07",
+    "Cost": "239,15",
+    "Category": "Gaz",
+    "Amount": 120,
+    "price": "0,50",
+    "empty": "1,99"
+  },
+  {
+    "Date": "2020-05-13 14:19:45",
+    "Cost": "99,66",
+    "Category": "Gaz",
+    "Amount": 43,
+    "price": "0,43",
+    "empty": "2,32"
+  },
+  {
+    "Date": "2020-05-13 14:22:07",
+    "Cost": "293,21",
+    "Category": "Pr퉐",
+    "Amount": 411,
+    "price": "1,40",
+    "empty": "0,71"
+  },
+  {
+    "Date": "2020-06-15 13:13:37",
+    "Cost": 68,
+    "Category": "Gaz",
+    "Amount": 26,
+    "price": "0,38",
+    "empty": "2,62"
+  },
+  {
+    "Date": "2020-07-14 11:43:59",
+    "Cost": 270,
+    "Category": "Pr퉐",
+    "Amount": 376,
+    "price": "1,39",
+    "empty": "0,72"
+  },
+  {
+    "Date": "2020-07-14 16:43:26",
+    "Cost": 47,
+    "Category": "Gaz",
+    "Amount": 15,
+    "price": "0,32",
+    "empty": "3,13"
+  },
+  {
+    "Date": "2020-08-14 12:18:07",
+    "Cost": 45,
+    "Category": "Gaz",
+    "Amount": 14,
+    "price": "0,31",
+    "empty": "3,21"
+  },
+  {
+    "Date": "2020-09-09 09:20:05",
+    "Cost": "273,24",
+    "Category": "Pr퉐",
+    "Amount": 381,
+    "price": "1,39",
+    "empty": "0,72"
+  },
+  {
+    "Date": "2020-09-30 15:28:29",
+    "Cost": "77,55",
+    "Category": "Gaz",
+    "Amount": 30,
+    "price": "0,39",
+    "empty": "2,59"
+  },
+  {
+    "Date": "2020-10-21 19:46:44",
+    "Cost": "47,18",
+    "Category": "Gaz",
+    "Amount": 19,
+    "price": "0,40",
+    "empty": "2,48"
+  },
+  {
+    "Date": "2020-11-06 07:34:13",
+    "Cost": "332,81",
+    "Category": "Pr퉐",
+    "Amount": 474,
+    "price": "1,42",
+    "empty": "0,70"
+  },
+  {
+    "Date": "2020-11-17 15:27:21",
+    "Cost": 240,
+    "Category": "Gaz",
+    "Amount": 129,
+    "price": "0,54",
+    "empty": "1,86"
+  },
+  {
+    "Date": "2020-12-17 16:49:06",
+    "Cost": "282,76",
+    "Category": "Gaz",
+    "Amount": 156,
+    "price": "0,55",
+    "empty": "1,81"
+  },
+  {
+    "Date": "2021-01-15 21:42:42",
+    "Cost": 490,
+    "Category": "Pr퉐",
+    "Amount": 668,
+    "price": "1,36",
+    "empty": "0,73"
+  },
+  {
+    "Date": "2021-01-18 22:35:50",
+    "Cost": 343,
+    "Category": "Gaz",
+    "Amount": 193,
+    "price": "0,56",
+    "empty": "1,78"
+  },
+  {
+    "Date": "2021-02-16 14:13:09",
+    "Cost": "401,13",
+    "Category": "Gaz",
+    "Amount": 231,
+    "price": "0,58",
+    "empty": "1,74"
+  },
+  {
+    "Date": "2021-03-11 17:23:40",
+    "Cost": "452,38",
+    "Category": "Pr퉐",
+    "Amount": 613,
+    "price": "1,36",
+    "empty": "0,74"
+  },
+  {
+    "Date": "2021-03-17 19:36:57",
+    "Cost": 311,
+    "Category": "Gaz",
+    "Amount": 176,
+    "price": "0,57",
+    "empty": "1,77"
+  },
+  {
+    "Date": "2021-04-16 19:09:30",
+    "Cost": 250,
+    "Category": "Gaz",
+    "Amount": 140,
+    "price": "0,56",
+    "empty": "1,79"
+  },
+  {
+    "Date": "2021-05-11 22:21:08",
+    "Cost": 410,
+    "Category": "Pr퉐",
+    "Amount": 550,
+    "price": "1,34",
+    "empty": "0,75"
+  },
+  {
+    "Date": "2021-05-14 06:44:10",
+    "Cost": 193,
+    "Category": "Gaz",
+    "Amount": 91,
+    "price": "0,47",
+    "empty": "2,12"
+  },
+  {
+    "Date": "2021-06-16 17:38:39",
+    "Cost": "70,79",
+    "Category": "Gaz",
+    "Amount": 29,
+    "price": "0,41",
+    "empty": "2,44"
+  },
+  {
+    "Date": "2021-07-12 19:21:30",
+    "Cost": "266,71",
+    "Category": "Pr퉐",
+    "Amount": 321,
+    "price": "1,20",
+    "empty": "0,83"
+  },
+  {
+    "Date": "2021-07-14 20:38:44",
+    "Cost": "51,97",
+    "Category": "Gaz",
+    "Amount": 18,
+    "price": "0,35",
+    "empty": "2,89"
+  },
+  {
+    "Date": "2021-08-17 10:08:26",
+    "Cost": "52,55",
+    "Category": "Gaz",
+    "Amount": 18,
+    "price": "0,34",
+    "empty": "2,92"
+  },
+  {
+    "Date": "2021-09-09 21:29:21",
+    "Cost": 285,
+    "Category": "Pr퉐",
+    "Amount": 356,
+    "price": "1,25",
+    "empty": "0,80"
+  },
+  {
+    "Date": "2021-10-20 17:27:53",
+    "Cost": 168,
+    "Category": "Gaz",
+    "Amount": 77,
+    "price": "0,46",
+    "empty": "2,18"
+  },
+  {
+    "Date": "2021-11-06 15:41:24",
+    "Cost": "321,84",
+    "Category": "Pr퉐",
+    "Amount": 413,
+    "price": "1,28",
+    "empty": "0,78"
+  },
+  {
+    "Date": "2021-09-10 15:55:44",
+    "Cost": "58,35",
+    "Category": "Gaz",
+    "Amount": 20,
+    "price": "0,34",
+    "empty": "2,92"
+  }
+]

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinApp.UnitTests", "FinApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinApp.Infrastructure", "FinApp.Infrastructure\FinApp.Infrastructure.csproj", "{E4444B1D-85E4-4A08-B038-F850B7FB640B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinApp.Common", "FinApp.Common\FinApp.Common.csproj", "{B99C2015-AF03-4F41-83CD-9AD591584141}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E4444B1D-85E4-4A08-B038-F850B7FB640B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4444B1D-85E4-4A08-B038-F850B7FB640B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4444B1D-85E4-4A08-B038-F850B7FB640B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B99C2015-AF03-4F41-83CD-9AD591584141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B99C2015-AF03-4F41-83CD-9AD591584141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B99C2015-AF03-4F41-83CD-9AD591584141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B99C2015-AF03-4F41-83CD-9AD591584141}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

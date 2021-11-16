@@ -1,5 +1,5 @@
 ﻿namespace FinApp.Domain.Expenses.Consumptions
 {
-    public record Consumption(decimal Amount, ConsumptionUnit Unit)
+    public record Consumption(decimal Amount, ConsumptionType Type)
     { }
 }
