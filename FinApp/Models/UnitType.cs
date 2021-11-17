@@ -1,4 +1,4 @@
-﻿namespace FinApp.Common
+﻿namespace FinApp.Api.Models
 {
     public enum UnitType
     {

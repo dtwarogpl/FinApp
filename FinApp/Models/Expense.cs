@@ -1,17 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using FinApp.Domain.Expenses.Moneys;
-using FinApp.Infrastructure.Expenses.Consumptions;
 
-namespace FinApp.Infrastructure.Expenses
+namespace FinApp.Api.Models
 {
-    internal class ExpenseDbDto
+    public class Expense
     {
         [Key]
         public Guid Id { get; set; }
 
-        public DateTime CreatedAt { get; set; }
         public DateTime OccuredAt { get; set; }
         public decimal PaidAmount { get; set; }
         public Currency Currency { get; set; }
@@ -19,6 +16,6 @@ namespace FinApp.Infrastructure.Expenses
         public Guid ConsumptionTypeId { get; set; }
 
         [ForeignKey(nameof(ConsumptionTypeId))]
-        public ConsumptionTypeDbDto ConsumptionType { get; set; }
+        public ConsumptionType ConsumptionType { get; set; }
     }
 }

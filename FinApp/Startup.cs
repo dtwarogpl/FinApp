@@ -1,6 +1,8 @@
-using FinApp.Infrastructure;
+using FinApp.Api.DbContexts;
+using FinApp.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,7 +20,10 @@ namespace FinApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.RegisterInfrasturcureDependencies();
+            services.AddScoped<IExpenseRepository, ExpenseRepository>();
+
+            services.AddDbContext<ExpensesDbContext>(options =>
+                options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=FinAppApi;Trusted_Connection=True;"));
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "FinApp", Version = "v1"}); });
         }
 

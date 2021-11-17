@@ -14,9 +14,4 @@
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FinApp.Domain\FinApp.Domain.csproj" />
-    <ProjectReference Include="..\FinApp.Infrastructure\FinApp.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>

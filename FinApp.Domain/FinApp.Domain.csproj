@@ -8,4 +8,9 @@
     <ProjectReference Include="..\FinApp.Common\FinApp.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Expenses\Consumptions\" />
+    <Folder Include="Expenses\Services\" />
+  </ItemGroup>
+
 </Project>

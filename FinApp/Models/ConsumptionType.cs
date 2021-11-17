@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using FinApp.Common;
 
-namespace FinApp.Infrastructure.Expenses.Consumptions
+namespace FinApp.Api.Models
 {
-    internal class ConsumptionTypeDbDto
+    public class ConsumptionType
     {
         [Key]
         public Guid Id { get; set; }

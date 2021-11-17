@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using FinApp.Api.Models;
 
-namespace FinApp.Domain.Expenses.Services
+namespace FinApp.Api.Services
 {
     public interface IExpenseRepository
     {
-        IAsyncEnumerable<Expense> GetExpenses();
+        IEnumerable<Expense> GetExpenses();
         void AddExpense(Expense expense);
         bool Save();
     }
