@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FinApp.Api.DbContexts;
 using FinApp.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,16 @@ namespace FinApp.Api.Services
             return _context.Expenses.AsQueryable().Where(exp => exp.ConsumptionTypeId == consumptionTypeId).Include(x => x.ConsumptionType);
         }
 
+        public async Task AddExpenseAsync(Expense expense)
+        {
+            expense.Id = Guid.NewGuid();
+            await _context.AddAsync(expense);
+        }
+
+        public async Task<bool> SaveAsync() => await _context.SaveChangesAsync() >= 0;
+
+        public Task<Expense> GetExpenseAsync(Guid id) => _context.Expenses.FirstOrDefaultAsync(x => x.Id == id);
+
         public void AddExpense(Expense expense)
         {
             if (expense == null)
@@ -34,7 +45,6 @@ namespace FinApp.Api.Services
             _context.Expenses.Add(expense);
         }
 
-        public bool Save() => _context.SaveChanges() >= 0;
 
         public void AddConsumptionType(ConsumptionType consumptionType)
         {
