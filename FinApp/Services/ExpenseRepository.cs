@@ -15,6 +15,11 @@ namespace FinApp.Api.Services
 
         public IEnumerable<Expense> GetExpenses() => _context.Expenses.Include(x => x.ConsumptionType).ToList();
 
+        public IEnumerable<Expense> GetExpenses(Guid consumptionTypeId)
+        {
+            return _context.Expenses.AsQueryable().Where(exp => exp.ConsumptionTypeId == consumptionTypeId).Include(x => x.ConsumptionType);
+        }
+
         public void AddExpense(Expense expense)
         {
             if (expense == null)
