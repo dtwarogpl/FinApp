@@ -10,6 +10,6 @@ namespace FinApp.Api.Models
 
         public string Name { get; set; }
 
-        public UnitType Unit { get; set; }
+        public string Unit { get; set; }
     }
 }

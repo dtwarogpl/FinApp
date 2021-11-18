@@ -23,13 +23,13 @@ namespace FinApp.Api.DbContexts
             {
                 Id = electicityGuid,
                 Name = "Prąd",
-                Unit = UnitType.kWh
+                Unit = "kWh"
             }, new ConsumptionType
             {
                 Id = gasGuid,
 
                 Name = "Gaz",
-                Unit = UnitType.CubicMeters
+                Unit = "m3"
             });
 
             modelBuilder.Entity<Expense>().HasData(new Expense
