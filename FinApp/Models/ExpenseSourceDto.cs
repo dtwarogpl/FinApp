@@ -9,12 +9,15 @@ namespace FinApp.Api.Models
         public DateTime OccuredAt { get; set; }
 
         [Required]
+        [Range(1, double.MaxValue)]
         public decimal PaidAmount { get; set; }
 
         [Required]
+
         public Currency Currency { get; set; }
 
         [Required]
+        [Range(1, double.MaxValue)]
         public decimal ConsumptionAmount { get; set; }
 
         [Required]

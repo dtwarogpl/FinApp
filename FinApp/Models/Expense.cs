@@ -14,6 +14,7 @@ namespace FinApp.Api.Models
 
         [Required]
         [Column(TypeName = "decimal(18,4)")]
+
         public decimal PaidAmount { get; set; }
 
         [Required]
@@ -21,6 +22,7 @@ namespace FinApp.Api.Models
 
         [Required]
         [Column(TypeName = "decimal(18,4)")]
+
         public decimal ConsumptionAmount { get; set; }
 
         [Required]
