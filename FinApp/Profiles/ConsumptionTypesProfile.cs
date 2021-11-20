@@ -7,7 +7,8 @@ namespace FinApp.Profiles
     {
         public ConsumptionTypesProfile()
         {
-            CreateMap<ConsumptionTypeSourceDto, ConsumptionType>();
+            CreateMap<ConsumptionTypeForCreationDto, ConsumptionType>();
+            CreateMap<ConsumptionTypeForUpdateDto, ConsumptionType>();
         }
     }
 }

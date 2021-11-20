@@ -7,10 +7,10 @@ namespace FinApp.Api.ValidationRules
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var consumptionType = (ConsumptionTypeSourceDto) validationContext.ObjectInstance;
+            var consumptionType = (ConsumptionTypeForManipulationDto) validationContext.ObjectInstance;
 
             return consumptionType.Name == consumptionType.Unit
-                ? new ValidationResult(ErrorMessage, new[] {nameof(ConsumptionTypeSourceDto)})
+                ? new ValidationResult(ErrorMessage, new[] {nameof(ConsumptionTypeForManipulationDto)})
                 : ValidationResult.Success;
         }
     }

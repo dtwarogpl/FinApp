@@ -7,7 +7,8 @@ namespace FinApp.Profiles
     {
         public ExpenseProfile()
         {
-            CreateMap<ExpenseSourceDto, Expense>();
+            CreateMap<ExpenseForCreationDto, Expense>();
+            CreateMap<ExpenseForUpdateDto, Expense>();
         }
     }
 }

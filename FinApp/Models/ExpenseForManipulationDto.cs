@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FinApp.Api.Models
 {
-    public class ExpenseSourceDto
+    public abstract class ExpenseForManipulationDto
     {
         [Required]
         public DateTime OccuredAt { get; set; }
@@ -19,6 +19,7 @@ namespace FinApp.Api.Models
         [Required]
         [Range(1, double.MaxValue)]
         public decimal ConsumptionAmount { get; set; }
+
 
         [Required]
         public Guid ConsumptionTypeId { get; set; }

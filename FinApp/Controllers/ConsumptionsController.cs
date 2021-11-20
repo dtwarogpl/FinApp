@@ -36,13 +36,25 @@ namespace FinApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ConsumptionType>> CreateConsumption(ConsumptionTypeSourceDto source)
+        public async Task<ActionResult<ConsumptionType>> CreateConsumption(ConsumptionTypeForCreationDto source)
         {
-            var consumption = _mapper.Map<ConsumptionTypeSourceDto, ConsumptionType>(source);
+            var consumption = _mapper.Map<ConsumptionTypeForCreationDto, ConsumptionType>(source);
             await _repository.AddConsumptionTypeAsync(consumption);
             await _repository.SaveAsync();
 
             return CreatedAtRoute("GetConsumptionType", new {consumptionId = consumption.Id}, consumption);
+        }
+
+        [HttpPut("{consumptionId}")]
+        public async Task<ActionResult> UpdateConsumptionType(Guid consumptionId, ConsumptionTypeForUpdateDto consumptionType)
+        {
+            var consumptionTypeFromRepo = await _repository.GetConsumptionType(consumptionId);
+            if (consumptionTypeFromRepo is null)
+                return NotFound();
+
+            _mapper.Map(consumptionType, consumptionTypeFromRepo);
+            await _repository.SaveAsync();
+            return NoContent();
         }
     }
 }

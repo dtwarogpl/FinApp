@@ -4,7 +4,7 @@ using FinApp.Api.ValidationRules;
 namespace FinApp.Api.Models
 {
     [CounsumptionUnitHasToBeDifferentFromName(ErrorMessage = "The provided unit should be different from the name")]
-    public class ConsumptionTypeSourceDto
+    public abstract class ConsumptionTypeForManipulationDto
     {
         [Required]
         [MaxLength(50)]

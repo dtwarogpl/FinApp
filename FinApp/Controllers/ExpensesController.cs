@@ -47,14 +47,27 @@ namespace FinApp.Api.Controllers
         //todo: create expense 
         //todo: create expense with consumption
         [HttpPost]
-        public async Task<ActionResult<Expense>> CreateExpense(ExpenseSourceDto source)
+        public async Task<ActionResult<Expense>> CreateExpense(ExpenseForCreationDto forCreation)
         {
-            var expense = _mapper.Map<ExpenseSourceDto, Expense>(source);
+            var expense = _mapper.Map<ExpenseForCreationDto, Expense>(forCreation);
 
             await _expenseRepository.AddExpenseAsync(expense);
             await _expenseRepository.SaveAsync();
 
             return CreatedAtRoute("GetExpense", new {id = expense.Id}, expense);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateExpense(Guid id, ExpenseForUpdateDto expense)
+        {
+            var expenseFromRepository = await _expenseRepository.GetExpenseAsync(id);
+
+            if (expenseFromRepository is null)
+                return NotFound();
+
+            _mapper.Map(expense, expenseFromRepository);
+            await _expenseRepository.SaveAsync();
+            return NoContent();
         }
     }
 }
