@@ -25,7 +25,7 @@ namespace FinApp.Api.Controllers
         public ActionResult<IEnumerable<Expense>> GetExpenses([FromQuery] Guid consumptionId)
         {
             if (consumptionId == Guid.Empty)
-                Ok(_expenseRepository.GetExpenses());
+                return Ok(_expenseRepository.GetExpenses());
 
             var expenses = _expenseRepository.GetExpenses(consumptionId);
             return Ok(expenses);

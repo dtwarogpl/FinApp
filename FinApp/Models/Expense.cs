@@ -9,10 +9,21 @@ namespace FinApp.Api.Models
         [Key]
         public Guid Id { get; set; }
 
+        [Required]
         public DateTime OccuredAt { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,4)")]
         public decimal PaidAmount { get; set; }
+
+        [Required]
         public Currency Currency { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,4)")]
         public decimal ConsumptionAmount { get; set; }
+
+        [Required]
         public Guid ConsumptionTypeId { get; set; }
 
         [ForeignKey(nameof(ConsumptionTypeId))]
