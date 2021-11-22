@@ -36,6 +36,11 @@ namespace FinApp.Api.Services
             // Handled by reference
         }
 
+        public void Delete(Expense expense)
+        {
+            _context.Expenses.Remove(expense);
+        }
+
         public void AddExpense(Expense expense)
         {
             if (expense == null)

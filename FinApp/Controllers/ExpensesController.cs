@@ -23,16 +23,14 @@ namespace FinApp.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Expense>> GetExpenses([FromQuery] Guid consumptionId)
+        public ActionResult<IEnumerable<Expense>> GetExpenses([FromQuery] Guid consumptionTypeId)
         {
-            if (consumptionId == Guid.Empty)
+            if (consumptionTypeId == Guid.Empty)
                 return Ok(_expenseRepository.GetExpenses());
 
-            var expenses = _expenseRepository.GetExpenses(consumptionId);
+            var expenses = _expenseRepository.GetExpenses(consumptionTypeId);
             return Ok(expenses);
-
-            //return NotFound();
-        }
+        s   }
 
         [HttpGet("{id}", Name = "GetExpense")]
         public async Task<ActionResult<Expense>> GetExpense(Guid id)
@@ -90,6 +88,19 @@ namespace FinApp.Api.Controllers
 
             _mapper.Map(expenseDto, expenseFromRepository);
             _expenseRepository.Update(expenseFromRepository);
+            await _expenseRepository.SaveAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteExpense(Guid id)
+        {
+            var expenseFromRepository = await _expenseRepository.GetExpenseAsync(id);
+
+            if (expenseFromRepository is null)
+                return NotFound();
+
+            _expenseRepository.Delete(expenseFromRepository);
             await _expenseRepository.SaveAsync();
             return NoContent();
         }

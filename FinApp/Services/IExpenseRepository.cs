@@ -13,5 +13,6 @@ namespace FinApp.Api.Services
         Task<bool> SaveAsync();
         Task<Expense> GetExpenseAsync(Guid id);
         void Update(Expense expense);
+        void Delete(Expense expense);
     }
 }
