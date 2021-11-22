@@ -53,6 +53,7 @@ namespace FinApp.Api.Controllers
                 return NotFound();
 
             _mapper.Map(consumptionType, consumptionTypeFromRepo);
+            _repository.Update(consumptionTypeFromRepo);
             await _repository.SaveAsync();
             return NoContent();
         }

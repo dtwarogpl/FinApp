@@ -66,6 +66,8 @@ namespace FinApp.Api.Controllers
                 return NotFound();
 
             _mapper.Map(expense, expenseFromRepository);
+
+            await _expenseRepository.Update(expense);
             await _expenseRepository.SaveAsync();
             return NoContent();
         }

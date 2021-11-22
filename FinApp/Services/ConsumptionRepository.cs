@@ -23,7 +23,11 @@ namespace FinApp.Api.Services
 
         public Task SaveAsync() => _context.SaveChangesAsync();
 
-        IEnumerable<ConsumptionType> IConsumptionRepository.GetConsumptionTypes() => _context.ConsumptionTypes;
+        public void Update(ConsumptionType consumptionType)
+        {
+            // Handled by reference
+        }
+
 
         public IEnumerable<ConsumptionType> GetConsumptionTypes() => _context.ConsumptionTypes;
     }

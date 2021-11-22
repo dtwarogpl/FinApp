@@ -12,5 +12,6 @@ namespace FinApp.Api.Services
         Task AddExpenseAsync(Expense expense);
         Task<bool> SaveAsync();
         Task<Expense> GetExpenseAsync(Guid id);
+        void Update(ExpenseForUpdateDto expense);
     }
 }

@@ -15,5 +15,6 @@ namespace FinApp.Controllers
         Task AddConsumptionTypeAsync(ConsumptionType consumptionType);
 
         Task SaveAsync();
+        void Update(ConsumptionType consumptionType);
     }
 }
