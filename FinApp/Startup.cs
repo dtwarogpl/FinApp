@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace FinApp
 {
@@ -23,10 +24,11 @@ namespace FinApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                options.JsonSerializerOptions.IgnoreNullValues = true;
-            });
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                }).AddNewtonsoftJson(setup => { setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); })
+                .AddXmlDataContractSerializerFormatters();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IConsumptionRepository, ConsumptionRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

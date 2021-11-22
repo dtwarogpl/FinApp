@@ -31,7 +31,7 @@ namespace FinApp.Api.Services
 
         public Task<Expense> GetExpenseAsync(Guid id) => _context.Expenses.FirstOrDefaultAsync(x => x.Id == id);
 
-        public void Update(ExpenseForUpdateDto expense)
+        public void Update(Expense expense)
         {
             // Handled by reference
         }

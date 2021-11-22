@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FinApp.Api.Models;
 using FinApp.Api.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinApp.Api.Controllers
@@ -67,7 +68,28 @@ namespace FinApp.Api.Controllers
 
             _mapper.Map(expense, expenseFromRepository);
 
-            await _expenseRepository.Update(expense);
+            _expenseRepository.Update(expenseFromRepository);
+            await _expenseRepository.SaveAsync();
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> PartiallyUpdateExpense(Guid id, JsonPatchDocument<ExpenseForUpdateDto> patchDocument)
+        {
+            var expenseFromRepository = await _expenseRepository.GetExpenseAsync(id);
+
+            if (expenseFromRepository is null)
+                return NotFound();
+
+            var expenseDto = _mapper.Map<Expense, ExpenseForUpdateDto>(expenseFromRepository);
+            patchDocument.ApplyTo(expenseDto, ModelState);
+
+            if (!TryValidateModel(expenseDto))
+                return ValidationProblem(ModelState);
+
+
+            _mapper.Map(expenseDto, expenseFromRepository);
+            _expenseRepository.Update(expenseFromRepository);
             await _expenseRepository.SaveAsync();
             return NoContent();
         }
