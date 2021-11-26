@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
-using FinApp.Api.Helpers;
+using FinApp.Api.Helpers.Pagination;
 using FinApp.Api.Models;
 using FinApp.Api.Services;
+using FinApp.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,61 +24,22 @@ namespace FinApp.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet(Name = "GetExpenses")]
+        [HttpGet(Name = nameof(GetExpenses))]
         public ActionResult<IEnumerable<ExpenseDto>> GetExpenses([FromQuery] ExpensesResourceParameters expensesResourceParameters)
         {
             var expenses = _expenseRepository.GetExpenses(expensesResourceParameters);
 
-            var previousPageLink = expenses.HasPrevious
-                ? CreateExpensesResourceUri(expensesResourceParameters, ResourceUriType.PreviousPage)
-                : null;
-
-            var nextPageLink = expenses.HasNext ? CreateExpensesResourceUri(expensesResourceParameters, ResourceUriType.NextPage) : null;
-
-            var paginationMetadata = new
-            {
-                totalCount = expenses.TotalCount,
-                pageSize = expenses.PageSize,
-                currentPage = expenses.CurrentPage,
-                totalPages = expenses.TotalPages,
-                previousPageLink,
-                nextPageLink
-            };
-
-            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+            CreatePaginationMetadata(expensesResourceParameters, expenses).AddTo(Response.Headers);
 
             return Ok(_mapper.Map<IEnumerable<Expense>, IEnumerable<ExpenseDto>>(expenses));
         }
 
-        private string CreateExpensesResourceUri(ExpensesResourceParameters expensesResourceParameters, ResourceUriType type)
-        {
-            switch (type)
-            {
-                case ResourceUriType.PreviousPage:
-                    return Url.Link("GetExpenses", new
-                    {
-                        pageNumber = expensesResourceParameters.PageNumber - 1,
-                        pagesize = expensesResourceParameters.PageSize,
-                        expensesResourceParameters.ConsumptionTypeId
-                    });
-                case ResourceUriType.NextPage:
-                    return Url.Link("GetExpenses", new
-                    {
-                        pageNumber = expensesResourceParameters.PageNumber + 1,
-                        pagesize = expensesResourceParameters.PageSize,
-                        expensesResourceParameters.ConsumptionTypeId
-                    });
-                default:
-                    return Url.Link("GetExpenses", new
-                    {
-                        pageNumber = expensesResourceParameters.PageNumber,
-                        pagesize = expensesResourceParameters.PageSize,
-                        expensesResourceParameters.ConsumptionTypeId
-                    });
-            }
-        }
+        private PaginationMetadata<Expense> CreatePaginationMetadata(ExpensesResourceParameters expensesResourceParameters,
+            PagedList<Expense> expenses) =>
+            new(expensesResourceParameters, expenses, new ExpensesPaginationUriFactory(Url, expensesResourceParameters));
 
-        [HttpGet("{id}", Name = "GetExpense")]
+
+        [HttpGet("{id}", Name = nameof(GetExpense))]
         public async Task<ActionResult<Expense>> GetExpense(Guid id)
         {
             var exp = await _expenseRepository.GetExpenseAsync(id);
@@ -99,7 +60,7 @@ namespace FinApp.Api.Controllers
             await _expenseRepository.AddExpenseAsync(expense);
             await _expenseRepository.SaveAsync();
 
-            return CreatedAtRoute("GetExpense", new {id = expense.Id}, expense);
+            return CreatedAtRoute(nameof(GetExpense), new {id = expense.Id}, expense);
         }
 
         [HttpPut("{id}")]

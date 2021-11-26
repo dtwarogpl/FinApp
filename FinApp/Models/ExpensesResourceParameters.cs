@@ -2,12 +2,14 @@
 
 namespace FinApp.Api.Models
 {
-    public class ExpensesResourceParameters
+    public class ExpensesResourceParameters : IPaginationParameters
     {
         private const int MaxPageSize = 20;
         private int _pageNumber = 1;
         private int _pageSize = 5;
         public Guid ConsumptionTypeId { get; set; }
+
+        public string OrderBy { get; set; } = nameof(ExpenseDto.OccuredAt);
 
         public int PageNumber
         {
@@ -20,7 +22,5 @@ namespace FinApp.Api.Models
             get => _pageSize;
             set => _pageSize = value > MaxPageSize ? MaxPageSize : value;
         }
-
-        public string OrderBy { get; set; } = "Date";
     }
 }
