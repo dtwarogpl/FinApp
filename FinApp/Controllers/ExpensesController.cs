@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
+using FinApp.Api.Helpers;
 using FinApp.Api.Models;
 using FinApp.Api.Services;
 using Microsoft.AspNetCore.JsonPatch;
@@ -22,15 +24,59 @@ namespace FinApp.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Expense>> GetExpenses([FromQuery] Guid consumptionTypeId)
+        [HttpGet(Name = "GetExpenses")]
+        public ActionResult<IEnumerable<ExpenseDto>> GetExpenses([FromQuery] ExpensesResourceParameters expensesResourceParameters)
         {
-            if (consumptionTypeId == Guid.Empty)
-                return Ok(_expenseRepository.GetExpenses());
+            var expenses = _expenseRepository.GetExpenses(expensesResourceParameters);
 
-            var expenses = _expenseRepository.GetExpenses(consumptionTypeId);
-            return Ok(expenses);
-        s   }
+            var previousPageLink = expenses.HasPrevious
+                ? CreateExpensesResourceUri(expensesResourceParameters, ResourceUriType.PreviousPage)
+                : null;
+
+            var nextPageLink = expenses.HasNext ? CreateExpensesResourceUri(expensesResourceParameters, ResourceUriType.NextPage) : null;
+
+            var paginationMetadata = new
+            {
+                totalCount = expenses.TotalCount,
+                pageSize = expenses.PageSize,
+                currentPage = expenses.CurrentPage,
+                totalPages = expenses.TotalPages,
+                previousPageLink,
+                nextPageLink
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+            return Ok(_mapper.Map<IEnumerable<Expense>, IEnumerable<ExpenseDto>>(expenses));
+        }
+
+        private string CreateExpensesResourceUri(ExpensesResourceParameters expensesResourceParameters, ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return Url.Link("GetExpenses", new
+                    {
+                        pageNumber = expensesResourceParameters.PageNumber - 1,
+                        pagesize = expensesResourceParameters.PageSize,
+                        expensesResourceParameters.ConsumptionTypeId
+                    });
+                case ResourceUriType.NextPage:
+                    return Url.Link("GetExpenses", new
+                    {
+                        pageNumber = expensesResourceParameters.PageNumber + 1,
+                        pagesize = expensesResourceParameters.PageSize,
+                        expensesResourceParameters.ConsumptionTypeId
+                    });
+                default:
+                    return Url.Link("GetExpenses", new
+                    {
+                        pageNumber = expensesResourceParameters.PageNumber,
+                        pagesize = expensesResourceParameters.PageSize,
+                        expensesResourceParameters.ConsumptionTypeId
+                    });
+            }
+        }
 
         [HttpGet("{id}", Name = "GetExpense")]
         public async Task<ActionResult<Expense>> GetExpense(Guid id)

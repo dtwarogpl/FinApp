@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinApp.Api.DbContexts;
+using FinApp.Api.Helpers;
 using FinApp.Api.Models;
+using FinApp.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinApp.Api.Services
@@ -14,11 +16,16 @@ namespace FinApp.Api.Services
 
         public ExpenseRepository(ExpensesDbContext context) => _context = context ?? throw new ArgumentNullException(nameof(context));
 
-        public IEnumerable<Expense> GetExpenses() => _context.Expenses.Include(x => x.ConsumptionType).ToList();
-
-        public IEnumerable<Expense> GetExpenses(Guid consumptionTypeId)
+        public PagedList<Expense> GetExpenses(ExpensesResourceParameters expensesResourceParameters)
         {
-            return _context.Expenses.AsQueryable().Where(exp => exp.ConsumptionTypeId == consumptionTypeId).Include(x => x.ConsumptionType);
+            var queryableCollection = _context.Expenses.Include(x => x.ConsumptionType).AsQueryable();
+
+            if (expensesResourceParameters.ConsumptionTypeId != Guid.Empty)
+                queryableCollection =
+                    queryableCollection.Where(exp => exp.ConsumptionTypeId == expensesResourceParameters.ConsumptionTypeId);
+
+            return queryableCollection.OrderBy(x => x.OccuredAt)
+                .ToPagedList(expensesResourceParameters.PageNumber, expensesResourceParameters.PageSize);
         }
 
         public async Task AddExpenseAsync(Expense expense)
@@ -39,6 +46,11 @@ namespace FinApp.Api.Services
         public void Delete(Expense expense)
         {
             _context.Expenses.Remove(expense);
+        }
+
+        public IEnumerable<Expense> GetExpenses(Guid consumptionTypeId)
+        {
+            return _context.Expenses.AsQueryable().Where(exp => exp.ConsumptionTypeId == consumptionTypeId).Include(x => x.ConsumptionType);
         }
 
         public void AddExpense(Expense expense)

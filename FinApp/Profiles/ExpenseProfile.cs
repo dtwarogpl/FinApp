@@ -10,6 +10,7 @@ namespace FinApp.Profiles
             CreateMap<ExpenseForCreationDto, Expense>();
             CreateMap<ExpenseForUpdateDto, Expense>();
             CreateMap<Expense, ExpenseForUpdateDto>();
+            CreateMap<Expense, ExpenseDto>();
         }
     }
 }
