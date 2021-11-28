@@ -32,6 +32,9 @@ namespace FinApp
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IConsumptionRepository, ConsumptionRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+
             services.AddDbContext<ExpensesDbContext>(options =>
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=FinAppApi;Trusted_Connection=True;"));
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "FinApp", Version = "v1"}); });

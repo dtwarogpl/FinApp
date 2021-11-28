@@ -13,8 +13,13 @@ namespace FinApp.Api.Services
     public class ExpenseRepository : IExpenseRepository
     {
         private readonly ExpensesDbContext _context;
+        private readonly IPropertyMappingService _mappingService;
 
-        public ExpenseRepository(ExpensesDbContext context) => _context = context ?? throw new ArgumentNullException(nameof(context));
+        public ExpenseRepository(ExpensesDbContext context, IPropertyMappingService mappingService)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mappingService = mappingService;
+        }
 
         public PagedList<Expense> GetExpenses(ExpensesResourceParameters expensesResourceParameters)
         {
@@ -24,8 +29,11 @@ namespace FinApp.Api.Services
                 queryableCollection =
                     queryableCollection.Where(exp => exp.ConsumptionTypeId == expensesResourceParameters.ConsumptionTypeId);
 
-            return queryableCollection.OrderBy(x => x.OccuredAt)
-                .ToPagedList(expensesResourceParameters.PageNumber, expensesResourceParameters.PageSize);
+            var mappingDictionary = _mappingService.GetPropertyMapping<ExpenseDto, Expense>();
+
+            queryableCollection = queryableCollection.ApplySort(expensesResourceParameters.OrderBy, mappingDictionary);
+
+            return queryableCollection.ToPagedList(expensesResourceParameters.PageNumber, expensesResourceParameters.PageSize);
         }
 
         public async Task AddExpenseAsync(Expense expense)

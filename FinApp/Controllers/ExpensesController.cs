@@ -17,16 +17,21 @@ namespace FinApp.Api.Controllers
     {
         private readonly IExpenseRepository _expenseRepository;
         private readonly IMapper _mapper;
+        private readonly IPropertyMappingService _mappingService;
 
-        public ExpensesController(IExpenseRepository expenseRepository, IMapper mapper)
+        public ExpensesController(IExpenseRepository expenseRepository, IMapper mapper, IPropertyMappingService mappingService)
         {
             _expenseRepository = expenseRepository;
             _mapper = mapper;
+            _mappingService = mappingService;
         }
 
         [HttpGet(Name = nameof(GetExpenses))]
         public ActionResult<IEnumerable<ExpenseDto>> GetExpenses([FromQuery] ExpensesResourceParameters expensesResourceParameters)
         {
+            if (_mappingService.ValidMappingExistsFor<ExpenseDto, Expense>(expensesResourceParameters.OrderBy))
+                return BadRequest();
+
             var expenses = _expenseRepository.GetExpenses(expensesResourceParameters);
 
             CreatePaginationMetadata(expensesResourceParameters, expenses).AddTo(Response.Headers);
@@ -36,7 +41,7 @@ namespace FinApp.Api.Controllers
 
         private PaginationMetadata<Expense> CreatePaginationMetadata(ExpensesResourceParameters expensesResourceParameters,
             PagedList<Expense> expenses) =>
-            new(expensesResourceParameters, expenses, new ExpensesPaginationUriFactory(Url, expensesResourceParameters));
+            new(expensesResourceParameters, expenses, new ExpensesPaginationUrl(Url, expensesResourceParameters));
 
 
         [HttpGet("{id}", Name = nameof(GetExpense))]

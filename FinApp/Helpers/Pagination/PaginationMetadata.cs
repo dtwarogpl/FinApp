@@ -9,20 +9,18 @@ namespace FinApp.Api.Helpers.Pagination
     {
         private readonly PagedList<T> _elements;
         private readonly IPaginationParameters _paginationParameters;
-        private readonly PaginationUriFactory _paginationUriFactory;
+        private readonly PaginationUrl _paginationUrl;
 
-        public PaginationMetadata(IPaginationParameters paginationParameters, PagedList<T> elements,
-            PaginationUriFactory paginationUriFactory)
+        public PaginationMetadata(IPaginationParameters paginationParameters, PagedList<T> elements, PaginationUrl paginationUrl)
         {
             _paginationParameters = paginationParameters;
             _elements = elements;
-            _paginationUriFactory = paginationUriFactory;
+            _paginationUrl = paginationUrl;
         }
 
         public void AddTo(IHeaderDictionary headers)
         {
             var previousPageLink = PreviousPageLink(_paginationParameters, _elements);
-
             var nextPageLink = NextPageLink(_paginationParameters, _elements);
 
             var paginationMetadata = new
@@ -42,11 +40,9 @@ namespace FinApp.Api.Helpers.Pagination
         }
 
         private string NextPageLink(IPaginationParameters expensesResourceParameters, PagedList<T> expenses) =>
-            expenses.HasNext ? _paginationUriFactory.CreatePaginationUri(expensesResourceParameters, ResourceUriType.NextPage) : null;
+            expenses.HasNext ? _paginationUrl.GetNextPageUri(expensesResourceParameters) : null;
 
         private string PreviousPageLink(IPaginationParameters expensesResourceParameters, PagedList<T> expenses) =>
-            expenses.HasPrevious
-                ? _paginationUriFactory.CreatePaginationUri(expensesResourceParameters, ResourceUriType.PreviousPage)
-                : null;
+            expenses.HasPrevious ? _paginationUrl.GetPreviousPageUri(expensesResourceParameters) : null;
     }
 }

@@ -4,30 +4,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinApp.Api.Helpers.Pagination
 {
-    public class PaginationUriFactory
+    public class PaginationUrl
     {
         private readonly Dictionary<string, object> _resultElements = new();
         private readonly string _routeName;
         private readonly IUrlHelper _urlHelper;
 
-        public PaginationUriFactory(IUrlHelper urlHelper, string routeName)
+        public PaginationUrl(IUrlHelper urlHelper, string routeName)
         {
             _urlHelper = urlHelper;
             _routeName = routeName;
         }
 
-        public string CreatePaginationUri(IPaginationParameters paginationData, ResourceUriType type)
-        {
-            switch (type)
-            {
-                case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link(_routeName, CreateResultObject(paginationData.PageNumber - 1, paginationData.PageSize));
-                case ResourceUriType.NextPage:
-                    return _urlHelper.Link(_routeName, CreateResultObject(paginationData.PageNumber + 1, paginationData.PageSize));
-                default:
-                    return _urlHelper.Link(_routeName, CreateResultObject(paginationData.PageNumber, paginationData.PageSize));
-            }
-        }
+        public string GetCurrentPageUri(IPaginationParameters pagination) =>
+            _urlHelper.Link(_routeName, CreateResultObject(pagination.PageNumber, pagination.PageSize));
+
+        public string GetPreviousPageUri(IPaginationParameters pagination) =>
+            _urlHelper.Link(_routeName, CreateResultObject(pagination.PageNumber - 1, pagination.PageSize));
+
+        public string GetNextPageUri(IPaginationParameters pagination) =>
+            _urlHelper.Link(_routeName, CreateResultObject(pagination.PageNumber + 1, pagination.PageSize));
 
         private object CreateResultObject(int pageNumber, int pageSize)
         {

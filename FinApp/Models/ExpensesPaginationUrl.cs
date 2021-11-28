@@ -5,13 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinApp.Api.Models
 {
-    public class ExpensesPaginationUriFactory : PaginationUriFactory
+    public class ExpensesPaginationUrl : PaginationUrl
     {
-        public ExpensesPaginationUriFactory(IUrlHelper urlHelper, ExpensesResourceParameters parameters) : base(urlHelper,
+        public ExpensesPaginationUrl(IUrlHelper urlHelper, ExpensesResourceParameters parameters) : base(urlHelper,
             nameof(ExpensesController.GetExpenses))
         {
             if (parameters.ConsumptionTypeId != Guid.Empty)
                 Extend(nameof(parameters.ConsumptionTypeId), parameters.ConsumptionTypeId);
+
+            if (!string.IsNullOrWhiteSpace(parameters.OrderBy))
+                Extend(nameof(parameters.OrderBy), parameters.OrderBy);
         }
     }
 }
