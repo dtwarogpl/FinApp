@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FinApp.Api.Helpers.Pagination;
+using FinApp.Api.Helpers.Sorting.PropertyMappings;
 using FinApp.Api.Models;
 using FinApp.Api.Services;
 using FinApp.Helpers;
@@ -29,8 +30,8 @@ namespace FinApp.Api.Controllers
         [HttpGet(Name = nameof(GetExpenses))]
         public ActionResult<IEnumerable<ExpenseDto>> GetExpenses([FromQuery] ExpensesResourceParameters expensesResourceParameters)
         {
-            if (_mappingService.ValidMappingExistsFor<ExpenseDto, Expense>(expensesResourceParameters.OrderBy))
-                return BadRequest();
+            if (!_mappingService.ValidMappingExistsFor<ExpenseDto, Expense>(expensesResourceParameters.OrderBy, out var msg))
+                return BadRequest(msg);
 
             var expenses = _expenseRepository.GetExpenses(expensesResourceParameters);
 

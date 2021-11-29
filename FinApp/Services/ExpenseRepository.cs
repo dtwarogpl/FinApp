@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinApp.Api.DbContexts;
 using FinApp.Api.Helpers;
+using FinApp.Api.Helpers.Sorting.PropertyMappings;
 using FinApp.Api.Models;
 using FinApp.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -29,9 +30,8 @@ namespace FinApp.Api.Services
                 queryableCollection =
                     queryableCollection.Where(exp => exp.ConsumptionTypeId == expensesResourceParameters.ConsumptionTypeId);
 
-            var mappingDictionary = _mappingService.GetPropertyMapping<ExpenseDto, Expense>();
-
-            queryableCollection = queryableCollection.ApplySort(expensesResourceParameters.OrderBy, mappingDictionary);
+            var propertyMapping = _mappingService.GetPropertyMapping<ExpenseDto, Expense>();
+            queryableCollection = queryableCollection.ApplySort(expensesResourceParameters.OrderBy, propertyMapping);
 
             return queryableCollection.ToPagedList(expensesResourceParameters.PageNumber, expensesResourceParameters.PageSize);
         }

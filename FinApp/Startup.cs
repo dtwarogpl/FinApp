@@ -1,6 +1,8 @@
 using System;
 using System.Text.Json.Serialization;
 using FinApp.Api.DbContexts;
+using FinApp.Api.Helpers.Sorting.PropertyMappings;
+using FinApp.Api.Models;
 using FinApp.Api.Services;
 using FinApp.Controllers;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +35,8 @@ namespace FinApp
             services.AddScoped<IConsumptionRepository, ConsumptionRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+            services.AddTransient<IPropertyMappingService, MappingSelector>();
+            services.AddTransient<IPropertyMaping, ExpensePropertyMapping>();
 
             services.AddDbContext<ExpensesDbContext>(options =>
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=FinAppApi;Trusted_Connection=True;"));
