@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using FinApp.Api.Helpers.DataShaping;
 using FinApp.Api.Helpers.Pagination;
 using FinApp.Api.Helpers.Sorting.PropertyMappings;
 using FinApp.Api.Models;
@@ -28,7 +29,7 @@ namespace FinApp.Api.Controllers
         }
 
         [HttpGet(Name = nameof(GetExpenses))]
-        public ActionResult<IEnumerable<ExpenseDto>> GetExpenses([FromQuery] ExpensesResourceParameters expensesResourceParameters)
+        public IActionResult GetExpenses([FromQuery] ExpensesResourceParameters expensesResourceParameters)
         {
             if (!_mappingService.ValidMappingExistsFor<ExpenseDto, Expense>(expensesResourceParameters.OrderBy, out var msg))
                 return BadRequest(msg);
@@ -37,7 +38,7 @@ namespace FinApp.Api.Controllers
 
             CreatePaginationMetadata(expensesResourceParameters, expenses).AddTo(Response.Headers);
 
-            return Ok(_mapper.Map<IEnumerable<Expense>, IEnumerable<ExpenseDto>>(expenses));
+            return Ok(_mapper.Map<IEnumerable<Expense>, IEnumerable<ExpenseDto>>(expenses).ShapeData(expensesResourceParameters.Fields));
         }
 
         private PaginationMetadata<Expense> CreatePaginationMetadata(ExpensesResourceParameters expensesResourceParameters,
@@ -46,14 +47,14 @@ namespace FinApp.Api.Controllers
 
 
         [HttpGet("{id}", Name = nameof(GetExpense))]
-        public async Task<ActionResult<Expense>> GetExpense(Guid id)
+        public async Task<ActionResult<Expense>> GetExpense(Guid id, string fields = null)
         {
             var exp = await _expenseRepository.GetExpenseAsync(id);
 
             if (exp is null)
                 return NotFound();
 
-            return Ok(exp);
+            return !string.IsNullOrWhiteSpace(fields) ? Ok(exp.ShapeData(fields)) : Ok(exp);
         }
 
         //todo: create expense 

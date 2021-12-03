@@ -8,7 +8,7 @@ namespace FinApp.Api.Models
         private int _pageNumber = 1;
         private int _pageSize = 10;
         public Guid ConsumptionTypeId { get; set; }
-
+        public string Fields { get; set; }
         public string OrderBy { get; set; }
 
         public int PageNumber

@@ -15,6 +15,9 @@ namespace FinApp.Api.Models
 
             if (!string.IsNullOrWhiteSpace(parameters.OrderBy))
                 Extend(nameof(parameters.OrderBy), parameters.OrderBy);
+
+            if (!string.IsNullOrWhiteSpace(parameters.Fields))
+                Extend(nameof(parameters.Fields), parameters.Fields);
         }
     }
 }
