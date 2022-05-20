@@ -6,7 +6,7 @@ namespace FinApp.Api.Models
     {
         private const int MaxPageSize = 20;
         private int _pageNumber = 1;
-        private int _pageSize = 10;
+        private int _pageSize = 100;
         public Guid ConsumptionTypeId { get; set; }
         public string Fields { get; set; }
         public string OrderBy { get; set; }

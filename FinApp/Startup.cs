@@ -18,9 +18,14 @@ namespace FinApp
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private const string DefaultCorsPolicy = "Internal";
 
-        public Startup(IConfiguration configuration) => Configuration = configuration;
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -29,7 +34,10 @@ namespace FinApp
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                     options.JsonSerializerOptions.IgnoreNullValues = true;
-                }).AddNewtonsoftJson(setup => { setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); })
+                }).AddNewtonsoftJson(setup =>
+                {
+                    setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                })
                 .AddXmlDataContractSerializerFormatters();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IConsumptionRepository, ConsumptionRepository>();
@@ -37,6 +45,11 @@ namespace FinApp
 
             services.AddTransient<IPropertyMappingService, MappingSelector>();
             services.AddTransient<IPropertyMaping, ExpensePropertyMapping>();
+
+            var allowedOrigins = Configuration.GetValue<string>("AllowedOrigins")?.Split(",") ?? Array.Empty<string>();
+            services.AddCors(opt => opt.AddPolicy(DefaultCorsPolicy,
+                builder => builder.WithOrigins(allowedOrigins)));
+
 
             services.AddDbContext<ExpensesDbContext>(options =>
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=FinAppApi;Trusted_Connection=True;"));
@@ -53,6 +66,7 @@ namespace FinApp
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinApp v1"));
             }
 
+            app.UseCors(DefaultCorsPolicy);
             app.UseHttpsRedirection();
 
             app.UseRouting();

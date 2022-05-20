@@ -24,7 +24,7 @@ namespace FinApp.Api.Services
 
         public PagedList<Expense> GetExpenses(ExpensesResourceParameters expensesResourceParameters)
         {
-            var queryableCollection = _context.Expenses.Include(x => x.ConsumptionType).AsQueryable();
+            var queryableCollection = _context.Expenses.AsQueryable();
 
             if (expensesResourceParameters.ConsumptionTypeId != Guid.Empty)
                 queryableCollection =
@@ -58,7 +58,7 @@ namespace FinApp.Api.Services
 
         public IEnumerable<Expense> GetExpenses(Guid consumptionTypeId)
         {
-            return _context.Expenses.AsQueryable().Where(exp => exp.ConsumptionTypeId == consumptionTypeId).Include(x => x.ConsumptionType);
+            return _context.Expenses.AsQueryable().Where(exp => exp.ConsumptionTypeId == consumptionTypeId);
         }
 
         public void AddExpense(Expense expense)
@@ -68,9 +68,6 @@ namespace FinApp.Api.Services
 
 
             expense.Id = Guid.NewGuid();
-
-            if (expense.ConsumptionTypeId == Guid.Empty || ConsumptionTypeDoesNotExists(expense.ConsumptionTypeId))
-                AddConsumptionType(expense.ConsumptionType);
 
             _context.Expenses.Add(expense);
         }

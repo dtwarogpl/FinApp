@@ -27,8 +27,6 @@ namespace FinApp.Api.Models
 
         [Required]
         public Guid ConsumptionTypeId { get; set; }
-
-        [ForeignKey(nameof(ConsumptionTypeId))]
-        public ConsumptionType ConsumptionType { get; set; }
+     
     }
 }
