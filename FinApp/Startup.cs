@@ -46,13 +46,16 @@ namespace FinApp
             services.AddTransient<IPropertyMappingService, MappingSelector>();
             services.AddTransient<IPropertyMaping, ExpensePropertyMapping>();
 
-            var allowedOrigins = Configuration.GetValue<string>("AllowedOrigins")?.Split(",") ?? Array.Empty<string>();
             services.AddCors(opt => opt.AddPolicy(DefaultCorsPolicy,
-                builder => builder.WithOrigins(allowedOrigins)));
+                builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
 
             services.AddDbContext<ExpensesDbContext>(options =>
-                options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=FinAppApi;Trusted_Connection=True;"));
+                options.UseSqlServer(@"
+  Server=host.docker.internal,1433;
+  Database=FinApp;
+  User=sa;
+  Password=RoR9148C"));
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "FinApp", Version = "v1"}); });
         }
 
