@@ -33,7 +33,8 @@ namespace FinApp.Api.Services
             var propertyMapping = _mappingService.GetPropertyMapping<ExpenseDto, Expense>();
             queryableCollection = queryableCollection.ApplySort(expensesResourceParameters.OrderBy, propertyMapping);
 
-            return queryableCollection.ToPagedList(expensesResourceParameters.PageNumber, expensesResourceParameters.PageSize);
+            return expensesResourceParameters.DisablePagination? queryableCollection.ToSinglePageList()
+            : queryableCollection.ToPagedList(expensesResourceParameters.PageNumber, expensesResourceParameters.PageSize);
         }
 
         public async Task AddExpenseAsync(Expense expense)

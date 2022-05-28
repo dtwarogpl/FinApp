@@ -11,6 +11,8 @@ namespace FinApp.Api.Models
         public string Fields { get; set; }
         public string OrderBy { get; set; }
 
+        public bool DisablePagination { get; set; }
+
         public int PageNumber
         {
             get => _pageNumber;

@@ -14,7 +14,7 @@ namespace FinApp.Helpers
         public bool HasPrevious => CurrentPage > 1;
         public bool HasNext => CurrentPage < TotalPages;
 
-        private PagedList(List<T> items, int count, int pageNumber, int pagesize)
+        protected PagedList(List<T> items, int count, int pageNumber, int pagesize)
         {
             TotalCount = count;
             PageSize = pagesize;
